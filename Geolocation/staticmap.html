@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Static Map</title>
+    <script type="text/javascript">
+        window.onload = function(){
+            navigator.geolocation.getCurrentPosition(successPosition);
+            
+        }
+        
+        function successPosition(position){
+            var lat = position.coords.latitude;
+			var long = position.coords.longitude;
+            var latlong = lat + "," + long;
+            var mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlong + "&zoom=18&size=1280x1280&maptype=hybrid";
+            document.getElementById("staticmap").innerHTML = "<img src='" + mapUrl + "'>";
+        }
+    </script>
+</head>
+<body>
+    <div id="staticmap"></div>
+</body>  
+</html>

@@ -1,0 +1,4 @@
+
+getCurrentPosition(success_callback, error_callback, positionOptions)
+
+clearWach(id, error_callback, positionOptions)

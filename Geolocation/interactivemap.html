@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+       <title>Interactive Map</title>
+       <script src="https://maps.googleapis.com/maps/api/js"></script>
+       <script type="text/javascript">
+        window.onload = function(){
+            navigator.geolocation.getCurrentPosition(successPosition);  
+        }
+        
+        function successPosition(position){
+             var mapOptions = {
+                center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.HYBRID
+            };
+            var map = new google.maps.Map(document.getElementById("interactivemap"), mapOptions);
+            
+            var marker = new google.maps.Marker({
+               position: new google.maps.LatLng(53.2906680, -9.00),
+               map: map,
+               title: "My First Marker"
+            });
+            
+            var info = new google.maps.InfoWindow({
+                content: "My Information Window"
+            });
+            google.maps.event.addListener(marker, "click", function(){
+                info.open(map, marker);
+            });
+        }
+       </script>
+</head>
+
+<body>
+    
+    <div id="interactivemap" style="height:500px;width:600px;"></div>
+    
+</body>
+</html>

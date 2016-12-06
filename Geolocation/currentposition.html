@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>get Current Position</title>
+	<script type="text/javascript">
+		var watchId;
+		
+		function getPosition(){
+			if (navigator.geolocation){
+				navigator.geolocation.getCurrentPosition(successPosition);
+			}
+			else
+				document.getElementById("result").innerHTML = "Your Browser Does Not Support geolocation API";
+		}
+
+		function successPosition(position){
+			var lat = position.coords.latitude;
+			var long = position.coords.longitude;
+			
+			document.getElementById("result").innerHTML = "Latitude: " + lat + "<br />Longitutde: " + long;
+			
+			alert("Accuracy: " + position.coords.accuracy);
+			alert("Altitude: " + position.coords.altitude);
+			alert("Direction: " + position.coords.altitudeAccuracy);
+			alert("Speed: " + position.coords.speed);
+			alert("Timestap: " + position.timestamp);
+		}
+		
+		
+		function watchPosition(){
+			if (navigator.geolocation){
+				watchId = navigator.geolocation.watchPosition(startWatching, failurePosition, {
+					enableHighAccuracy: false,
+					timeout:1000,
+					maximumAge: 4000
+					});
+			}
+			else
+				document.getElementById("result").innerHTML = "Your Browser Does Not Support Geolocation API";
+		}
+		
+		function startWatching(position){
+			var lat = position.coords.latitude;
+			var long = position.coords.longitude;
+			
+			document.getElementById("result").innerHTML = "Latitude: " + lat + "<br />Longitutde: " + long;
+			
+		}
+		
+		function stopWatching(){
+			clearWatch(watchId);
+		}
+		
+		function failurePosition(error){
+			alert("Error Code: " + error.code + " Error Message: " + error.message)
+		}
+	</script>
+</head>
+
+<body>
+	<div id="result"></div>
+	<button id="btnPosition" onclick="getPosition();">Get Current Position</button>
+	<button id="btnStartTracking" onclick="watchPosition();">Start Tracking location</button>
+	<button id="btnStopTracking" onclick="stopWatching();">Stop Tracking Location</button>
+</body>
+</html>
